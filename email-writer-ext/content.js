@@ -1,18 +1,21 @@
 console.log("Email Writer Extension Loaded");
 function createAIButton() {
     const button = document.createElement('div');
-    button.className = 'T-I J-J5-Ji aoO T-I-atl L3';
-    button.style = 'margin-left: 10px; border-radius: 20px;';
+    button.className = 'T-I J-J5-Ji aoO v7 T-I-atl L3';
+    button.style.marginRight = '8px';
+    button.style = 'border-radius:50px';
     button.innerHTML = 'AI Reply';
-    button.setAttribute('role', 'button');
-    button.setAttribute('data-tooltip', 'Generate AI Reply');
-    button.setAttribute('aria-label', 'Generate AI Reply');
+    button.setAttribute('role','button');
+    button.setAttribute('data-tooltip', 'AI Reply');
     return button;
 }
 
 function getEmailContent() {
     const selectors = [
-        '.h7 ', '.a3s.aiL', '.gmail-quote', '[role="presentation"]'
+        '.h7 ',
+        '.a3s.aiL', 
+        '.gmail_ quote',
+        '[role="presentation"]'
     ];
     for (const selector of selectors) {
         const emailContent = document.querySelector(selector);
@@ -23,10 +26,12 @@ function getEmailContent() {
     }
 }
 
-
 function findComposeToolbar() {
     const selectors = [
-        '.aDh ', '.btC', '[role="dialog"]', '.gU.Up'
+        '.btC',
+        '.aDh ',
+        '[role="toolbar"]',
+        '.gU.Up'
     ];
     for (const selector of selectors) {
         const toolbar = document.querySelector(selector);
@@ -70,12 +75,12 @@ function injectButton() {
             if (!response.ok) {
                 throw new Error('Failed to generate AI reply');
             }
-            const generateReply = await response.text();
+            const generatedReply = await response.text();
             const composeBox = document.querySelector('[role="textbox"][g_editable="true"]');
 
             if (composeBox) {
                 composeBox.focus();
-                document.execCommand('insertText', false, generateReply);
+                document.execCommand('insertText', false, generatedReply);
             }
             else {
                 alert("Compose box not found");
